@@ -228,3 +228,123 @@ function addTodo() {
         updateButtons();
     }
 }
+
+// Move a todo item to the next status
+function moveTodoRight(item, currentList, nextList) {
+    currentList.removeChild(item);
+    nextList.appendChild(item);
+    updateButtons();
+}
+
+// Move a todo item to the previous status
+function moveTodoLeft(item, currentList, prevList) {
+    currentList.removeChild(item);
+    prevList.appendChild(item);
+    updateButtons();
+}
+
+// Update the state of buttons based on the item's position
+function updateButtons() {
+    const backlogList = document.getElementById('backlog-list');
+    const todoList = document.getElementById('todo-list');
+    const ongoingList = document.getElementById('ongoing-list');
+    const doneList = document.getElementById('done-list');
+
+    document.querySelectorAll('.todo-item').forEach(item => {
+        const currentList = item.parentElement;
+
+        const moveRightBtn = item.querySelector('.move-right');
+        const moveLeftBtn = item.querySelector('.move-left');
+
+        // Remove any existing move buttons
+        item.querySelector('.buttons').innerHTML = '';
+
+        // Add appropriate buttons based on current list
+        if (currentList === backlogList) {
+            if (moveRightBtn === null) {
+                const rightBtn = document.createElement('button');
+                rightBtn.classList.add('btn', 'move-right');
+                rightBtn.textContent = '→';
+                item.querySelector('.buttons').appendChild(rightBtn);
+            }
+        } else if (currentList === todoList) {
+            if (moveLeftBtn === null) {
+                const leftBtn = document.createElement('button');
+                leftBtn.classList.add('btn', 'move-left');
+                leftBtn.textContent = '←';
+                item.querySelector('.buttons').appendChild(leftBtn);
+            }
+            if (moveRightBtn === null) {
+                const rightBtn = document.createElement('button');
+                rightBtn.classList.add('btn', 'move-right');
+                rightBtn.textContent = '→';
+                item.querySelector('.buttons').appendChild(rightBtn);
+            }
+        } else if (currentList === ongoingList) {
+            if (moveLeftBtn === null) {
+                const leftBtn = document.createElement('button');
+                leftBtn.classList.add('btn', 'move-left');
+                leftBtn.textContent = '←';
+                item.querySelector('.buttons').appendChild(leftBtn);
+            }
+            if (moveRightBtn === null) {
+                const rightBtn = document.createElement('button');
+                rightBtn.classList.add('btn', 'move-right');
+                rightBtn.textContent = '→';
+                item.querySelector('.buttons').appendChild(rightBtn);
+            }
+        } else if (currentList === doneList) {
+            if (moveLeftBtn === null) {
+                const leftBtn = document.createElement('button');
+                leftBtn.classList.add('btn', 'move-left');
+                leftBtn.textContent = '←';
+                item.querySelector('.buttons').appendChild(leftBtn);
+            }
+        }
+    });
+
+    addEventListeners();
+}
+
+// Add event listeners to buttons
+function addEventListeners() {
+    document.querySelectorAll('.move-right').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.todo-item');
+            const currentList = item.parentElement;
+
+            if (currentList.id === 'backlog-list') {
+                moveTodoRight(item, currentList, document.getElementById('todo-list'));
+            } else if (currentList.id === 'todo-list') {
+                moveTodoRight(item, currentList, document.getElementById('ongoing-list'));
+            } else if (currentList.id === 'ongoing-list') {
+                moveTodoRight(item, currentList, document.getElementById('done-list'));
+            }
+        });
+    });
+
+    document.querySelectorAll('.move-left').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.todo-item');
+            const currentList = item.parentElement;
+
+            if (currentList.id === 'todo-list') {
+                moveTodoLeft(item, currentList, document.getElementById('backlog-list'));
+            } else if (currentList.id === 'ongoing-list') {
+                moveTodoLeft(item, currentList, document.getElementById('todo-list'));
+            } else if (currentList.id === 'done-list') {
+                moveTodoLeft(item, currentList, document.getElementById('ongoing-list'));
+            }
+        });
+    });
+}
+
+// Event listener for the "Add Todo" button
+document.getElementById('add-todo-btn').addEventListener('click', addTodo);
+
+// Update buttons initially
+updateButtons();
+
+    </script>
+</body>
+</html>
