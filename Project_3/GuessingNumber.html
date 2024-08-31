@@ -99,3 +99,66 @@
             }
         }
     </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Number Guessing Game</h1>
+        <p>Guess the number between 1 and 100</p>
+        <input type="number" id="userGuess" placeholder="Enter your guess" min="1" max="100">
+        <button id="submitGuess">Submit Guess</button>
+        <p id="feedback"></p>
+        <p id="attempts">Attempts: 0</p>
+        <button id="restartGame" style="display: none;">Restart Game</button>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let randomNumber = Math.floor(Math.random() * 100) + 1;
+            let attempts = 0;
+
+            const userGuess = document.getElementById("userGuess");
+            const submitGuess = document.getElementById("submitGuess");
+            const feedback = document.getElementById("feedback");
+            const attemptsDisplay = document.getElementById("attempts");
+            const restartGame = document.getElementById("restartGame");
+
+            submitGuess.addEventListener("click", () => {
+                const guess = parseInt(userGuess.value, 10);
+                if (isNaN(guess) || guess < 1 || guess > 100) {
+                    feedback.textContent = "Please enter a valid number between 1 and 100.";
+                    feedback.style.color = "red";
+                    return;
+                }
+
+                attempts++;
+                attemptsDisplay.textContent = `Attempts: ${attempts}`;
+
+                if (guess === randomNumber) {
+                    feedback.textContent = `Congratulations! You guessed the correct number in ${attempts} attempts.`;
+                    feedback.style.color = "green";
+                    submitGuess.disabled = true;
+                    restartGame.style.display = "inline-block";
+                } else if (guess < randomNumber) {
+                    feedback.textContent = "Too low! Try again.";
+                    feedback.style.color = "orange";
+                } else {
+                    feedback.textContent = "Too high! Try again.";
+                    feedback.style.color = "orange";
+                }
+
+                userGuess.value = "";
+            });
+
+            restartGame.addEventListener("click", () => {
+                randomNumber = Math.floor(Math.random() * 100) + 1;
+                attempts = 0;
+                feedback.textContent = "";
+                attemptsDisplay.textContent = `Attempts: ${attempts}`;
+                submitGuess.disabled = false;
+                userGuess.value = "";
+                restartGame.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>
