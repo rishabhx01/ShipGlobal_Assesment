@@ -152,3 +152,79 @@
             border-radius: 5px;
             font-size: 16px;
         }
+
+
+        #add-todo-btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        #add-todo-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div id="add-todo-container">
+        <input type="text" id="new-todo-input" placeholder="Enter a new todo">
+        <button id="add-todo-btn">Add Todo</button>
+    </div>
+
+    <div class="container">
+        <div class="card" id="backlog">
+            <h3>Backlog</h3>
+            <ul class="todo-list" id="backlog-list">
+                <li class="todo-item">
+                    <p>Todo 1</p>
+                    <div class="buttons">
+                        <button class="btn move-right">→</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card" id="todo">
+            <h3>To Do</h3>
+            <ul class="todo-list" id="todo-list"></ul>
+        </div>
+
+        <div class="card" id="ongoing">
+            <h3>Ongoing</h3>
+            <ul class="todo-list" id="ongoing-list"></ul>
+        </div>
+
+        <div class="card" id="done">
+            <h3>Done</h3>
+            <ul class="todo-list" id="done-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Function to add a new todo to the backlog list
+        // Function to add a new todo to the backlog list
+function addTodo() {
+    const todoInput = document.getElementById('new-todo-input');
+    const todoText = todoInput.value.trim();
+
+    if (todoText !== '') {
+        const backlogList = document.getElementById('backlog-list');
+        const newTodoItem = document.createElement('li');
+        newTodoItem.className = 'todo-item';
+        newTodoItem.innerHTML = `
+            <p>${todoText}</p>
+            <div class="buttons">
+                <button class="btn move-right">→</button>
+            </div>
+        `;
+        backlogList.appendChild(newTodoItem);
+        todoInput.value = '';
+        updateButtons();
+    }
+}
