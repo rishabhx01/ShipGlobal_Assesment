@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Accordion Component</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .accordion {
+            width: 90%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Accordion Header */
+        .accordion-header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease, padding 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #0056b3;
+            padding-left: 25px;
+        }
+
+        /* Icon for the header */
+        .accordion-header::after {
+            content: '\25BC'; /* Down arrow icon */
+            font-size: 12px;
