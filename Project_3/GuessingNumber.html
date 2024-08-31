@@ -52,3 +52,50 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #submitGuess {
+            background-color: #28a745;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        #submitGuess:hover {
+            background-color: #218838;
+        }
+
+        #restartGame {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #restartGame:hover {
+            background-color: #0069d9;
+        }
+
+        #feedback {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 400px) {
+            .game-container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
